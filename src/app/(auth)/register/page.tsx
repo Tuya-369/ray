@@ -50,7 +50,7 @@ export default function SignUpPage() {
 
 
 <div className="hidden relative md:block md:w-1/2">
-  {/* Үндсэн зураг */}
+ 
   <Image 
     src="/signup-furniture.jpg" 
     alt="Modern Living Room"
