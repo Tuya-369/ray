@@ -151,7 +151,7 @@ export default function ProductDetailPage() {
             <div className="flex gap-4">
               <button
                 onClick={() => addToCart(product as any)}
-                className="flex-1 bg-zinc-900 text-white py-6 rounded-[24px] font-bold text-lg flex items-center justify-center gap-4 hover:bg-zinc-800 transition-all shadow-[0_20px_40px_rgba(0,0,0,0.15)] active:scale-[0.98]"
+                className="flex-1 bg-zinc-900 text-white py-6 rounded-24px font-bold text-lg flex items-center justify-center gap-4 hover:bg-zinc-800 transition-all shadow-[0_20px_40px_rgba(0,0,0,0.15)] active:scale-[0.98]"
               >
                 <ShoppingBag size={24} />
                 Сагсанд нэмэх

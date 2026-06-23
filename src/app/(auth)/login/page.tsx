@@ -30,8 +30,6 @@ export default function LoginPage() {
       const name = email.split("@")[0] || "User";
       setUser({ name: name.charAt(0).toUpperCase() + name.slice(1), email });
       setTimeout(() => setIsLoading(false), 400);
-      // Optionally redirect after login
-      // router.push('/');
     } catch (err) {
       setError("И-мэйл эсвэл нууц үг буруу байна.");
       setIsLoading(false);
@@ -42,14 +40,14 @@ export default function LoginPage() {
     <div className="min-h-screen bg-[#f7f1e8] text-[#1e1e1e] flex items-center justify-center p-4 md:p-0 overflow-hidden">
       <div className="relative w-full max-w-7xl min-h-100vh md:min-h-[85vh] bg-white md:rounded-[2.5rem] md:shadow-[0_40px_100px_-40px_rgba(0,0,0,0.15)] flex flex-col md:flex-row overflow-hidden">
         <aside className="hidden md:block md:w-1/2 relative overflow-hidden z-20 animate-fade-in">
-          <Image
-            src="/login-furniture.jpg"
-            alt="Modern furniture"
-            fill
-            priority
-            className="object-cover"
+          <video
+            src="/login-furniture.mp4"
+            autoPlay
+            loop
+            muted
+            className="absolute inset-0 w-full h-full object-cover"
           />
-          <div className="absolute inset-0 .bg-gradient-to-t from-[#111111]/90 via-[#111111]/40 to-[#111111]/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#111111]/90 via-[#111111]/40 to-[#111111]/20" />
 
           <div className="absolute left-12 bottom-16 right-12 text-white">
             <p className="text-xs uppercase tracking-[0.4em] text-[#f8e7d6] font-medium mb-2">
@@ -65,7 +63,6 @@ export default function LoginPage() {
           </div>
         </aside>
 
-        {/* ================= ФОРМ БАЙРЛАХ ХЭСЭГ (БАРУУН ТАЛД) ================= */}
         <main className="w-full md:w-1/2 flex items-center justify-center px-6 py-12 md:px-12 lg:px-20 z-10 transition-transform duration-500 ease-in-out">
           <div className="w-full max-w-md">
             {/* Лого */}
@@ -73,7 +70,7 @@ export default function LoginPage() {
             <h1 className="text-3xl font-black tracking-tight text-brand sm:text-4xl">
               Тавтай морил.
             </h1>
-            <p className="mt-2 text-sm text-[#5f5f5f]">
+            <p className="mt-2 text-sm text-[#141414]">
               Та тавилгатай ертөнц рүү илүү хурдан орно.
             </p>
 

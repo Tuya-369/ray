@@ -1,7 +1,6 @@
 ﻿"use client";
 
 import { useState, FormEvent } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { useUser } from "@/src/context/UserContext";
 
@@ -25,11 +24,8 @@ export default function SignUpPage() {
     }
 
     try {
-      // set user in context (fake register)
       setUser({ name: name || email.split("@")[0] || "User", email });
       setTimeout(() => setIsLoading(false), 400);
-      // optionally redirect
-      // router.push('/');
     } catch (err) {
       setError("Бүртгэл хийхэд алдаа гарлаа.");
       setIsLoading(false);
@@ -39,13 +35,12 @@ export default function SignUpPage() {
   return (
     <div className="min-h-screen bg-[#f7f1e8] text-[#1e1e1e] flex items-center justify-center p-4 md:p-0 overflow-hidden">
       <div className="relative w-full max-w-7xl min-h-100vh md:min-h-[85vh] bg-white md:rounded-[2.5rem] md:shadow-[0_40px_100px_-40px_rgba(0,0,0,0.15)] flex flex-col md:flex-row overflow-hidden">
-        {/* ================= ФОРМ БАЙРЛАХ ХЭСЭГ (ЗҮҮН ТАЛД) ================= */}
         <main className="w-full md:w-1/2 flex items-center justify-center px-6 py-12 md:px-12 lg:px-20 z-10 transition-transform duration-500 ease-in-out">
           <div className="w-full max-w-md">
             <h1 className="text-3xl font-black tracking-tight text-brand sm:text-4xl">
               Бүртгэл үүсгэх
             </h1>
-            <p className="mt-2 text-sm text-[#5f5f5f]">
+            <p className="mt-2 text-sm text-[#140101]">
               Мөрөөдлийн гэрээ бүтээх аялалаа өнөөдөр эхлүүл.
             </p>
 
@@ -134,16 +129,16 @@ export default function SignUpPage() {
           </div>
         </main>
 
-        {/* ================= ЗУРАГ БА ТЕКСТ БАЙРЛАХ ХЭСЭГ (БАРУУН ТАЛД) ================= */}
+        {/* ================= ВИДЕО БА ТЕКСТ БАЙРЛАХ ХЭСЭГ (БАРУУН ТАЛД) ================= */}
         <aside className="hidden md:block md:w-1/2 relative overflow-hidden bg-[#111] z-20 animate-fade-in">
-          <Image
-            src="/signup-furniture.jpg"
-            alt="Modern living room"
-            fill
-            priority
-            className="object-cover"
+          <video
+            src="/signup-furniture.mp4"
+            autoPlay
+            loop
+            muted
+            className="absolute inset-0 w-full h-full object-cover"
           />
-          <div className="absolute inset-0 .bg-gradient-to-t from-[#111111]/90 via-[#111111]/40 to-[#111111]/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#111111]/90 via-[#111111]/40 to-[#111111]/20" />
 
           <div className="absolute left-12 bottom-16 right-12 text-white">
             <p className="text-xs uppercase tracking-[0.4em] text-[#f8e7d6] font-medium mb-2">
