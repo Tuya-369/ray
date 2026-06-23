@@ -1,33 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 
-const CATEGORIES = [
-  {
-    id: 1,
-    name: "Phoenix",
-    tag: "Орчин үеийн",
-    desc: "Зориулалттай, тав тухтай дизайн",
-    color: "#C9A99A",
-    items: ["Диван", "Ширээ", "Сандал"],
-  },
-  {
-    id: 2,
-    name: "Monotech",
-    tag: "Минималист",
-    desc: "Технологийн нарийн гүйцэтгэл",
-    color: "#7B9BAE",
-    items: ["Ажлын ширээ", "Тавиур", "Лиж"],
-  },
-  {
-    id: 3,
-    name: "Natura",
-    tag: "Байгалийн",
-    desc: "Мод, чулуу, ган — нэгдсэн хэлбэр",
-    color: "#A8B89A",
-    items: ["Орны хүрээ", "Шкаф", "Тагт"],
-  },
-];
-
+// 1. Арын долгионы анимац (Хэвээрээ үлдсэн)
 function WaveCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animRef = useRef<number | null>(null);
@@ -40,9 +14,13 @@ function WaveCanvas() {
     if (!ctx) return;
 
     const resize = () => {
-      canvas.width = canvas.offsetWidth * window.devicePixelRatio;
-      canvas.height = canvas.offsetHeight * window.devicePixelRatio;
-      ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+      canvas.width = canvas.offsetWidth * Math.min(window.devicePixelRatio, 2);
+      canvas.height =
+        canvas.offsetHeight * Math.min(window.devicePixelRatio, 2);
+      ctx.scale(
+        Math.min(window.devicePixelRatio, 2),
+        Math.min(window.devicePixelRatio, 2),
+      );
     };
     resize();
     window.addEventListener("resize", resize);
@@ -61,15 +39,16 @@ function WaveCanvas() {
       ctx.clearRect(0, 0, W, H);
 
       const t = tRef.current;
-      const slabs = 60;
+      const slabs = W < 640 ? 30 : 60;
       const slabW = W / slabs;
 
       for (let i = 0; i < slabs; i++) {
         const x = i * slabW;
-        const wave1 = Math.sin((i / slabs) * Math.PI * 3 + t * 0.6) * 60;
-        const wave2 = Math.sin((i / slabs) * Math.PI * 5 + t * 0.4 + 1) * 30;
-        const wave3 = Math.cos((i / slabs) * Math.PI * 2 + t * 0.3) * 20;
-        const height = 80 + wave1 + wave2 + wave3;
+        const wave1 =
+          Math.sin((i / slabs) * Math.PI * 3 + t * 0.6) * (W < 640 ? 30 : 60);
+        const wave2 = Math.sin((i / slabs) * Math.PI * 5 + t * 0.4 + 1) * 20;
+        const wave3 = Math.cos((i / slabs) * Math.PI * 2 + t * 0.3) * 15;
+        const height = (W < 640 ? 50 : 80) + wave1 + wave2 + wave3;
         const centerY =
           H / 2 + Math.sin((i / slabs) * Math.PI * 2 + t * 0.2) * 20;
 
@@ -89,7 +68,8 @@ function WaveCanvas() {
           colors[colorIdx][2] * (1 - blend) + colors[nextIdx][2] * blend,
         );
 
-        const tiltOffset = Math.sin((i / slabs) * Math.PI * 4 + t * 0.5) * 15;
+        const tiltOffset =
+          Math.sin((i / slabs) * Math.PI * 4 + t * 0.5) * (W < 640 ? 6 : 15);
 
         ctx.beginPath();
         ctx.moveTo(x + tiltOffset, centerY - height / 2);
@@ -123,9 +103,7 @@ function WaveCanvas() {
 
     draw();
     return () => {
-      if (animRef.current !== null) {
-        cancelAnimationFrame(animRef.current);
-      }
+      if (animRef.current !== null) cancelAnimationFrame(animRef.current);
       window.removeEventListener("resize", resize);
     };
   }, []);
@@ -138,139 +116,143 @@ function WaveCanvas() {
   );
 }
 
+// 2. Үндсэн Landing page компонент (Зассан хувилбар)
 export default function FurnitureLanding() {
-  const [active, setActive] = useState<number | null>(null);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
   return (
     <div
       style={{
-        fontFamily: "'Helvetica Neue', Arial, sans-serif",
-        background: "#FAFAF8",
+        fontFamily: "'Inter', 'Helvetica Neue', Arial, sans-serif",
+        background: "#FBFBFA",
         minHeight: "100vh",
-        color: "#2B2B2B",
+        color: "#1A1A1A",
+        display: "flex",
+        flexDirection: "column",
       }}
     >
       <section
         style={{
           position: "relative",
-          height: "100vh",
+          // ӨНДРИЙГ ӨӨРЧИЛСӨН ХЭСЭГ: 100vh-ийг устгаж уян хатан болгов
+          width: "100%",
+          padding: "120px 0 80px 0", // Дээд болон доод талд тодорхой хэмжээний зай өгч богиносгов
           overflow: "hidden",
           display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
+          alignItems: "center",
+          flex: 1,
         }}
       >
-        <div style={{ position: "absolute", inset: 0 }}>
+        {/* Арын фонны анимаци ба маск */}
+        <div style={{ position: "absolute", inset: 0, zIndex: 1 }}>
           <WaveCanvas />
-          {/* Gradient overlays */}
           <div
             style={{
               position: "absolute",
               inset: 0,
               background:
-                "linear-gradient(to bottom, rgba(250,250,248,0.2) 0%, rgba(250,250,248,0) 40%, rgba(250,250,248,0) 60%, rgba(250,250,248,0.3) 100%)",
-            }}
-          />
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              background:
-                "linear-gradient(to right, rgba(250,250,248,0.3) 0%, transparent 40%, transparent 60%, rgba(250,250,248,0.2) 100%)",
+                "linear-gradient(90deg, rgba(251,251,250,0.96) 0%, rgba(251,251,250,0.6) 50%, rgba(251,251,250,0.2) 100%)",
             }}
           />
         </div>
 
+        {/* Үндсэн Контент */}
         <div
           style={{
             position: "relative",
             zIndex: 10,
-            padding: "0 48px",
-            maxWidth: 900,
+            padding: "0 10%",
+            maxWidth: 800,
+            width: "100%",
+            boxSizing: "border-box",
           }}
         >
           <div
             style={{
               fontSize: 11,
               letterSpacing: "0.25em",
-              color: "rgba(43,43,43,0.6)",
-              marginBottom: 24,
+              color: "#C9A99A",
+              marginBottom: 16,
+              fontWeight: 600,
               textTransform: "uppercase",
             }}
           >
             Тавилгын урлаг — 2025
           </div>
-          <h1 style={{ margin: 0, lineHeight: 1.05, fontWeight: 300 }}>
+
+          <h1
+            style={{
+              margin: 0,
+              fontSize: "clamp(36px, 6vw, 72px)",
+              lineHeight: 1.15,
+              fontWeight: 700,
+              letterSpacing: "-0.03em",
+              color: "#1A1A1A",
+            }}
+          >
+            Чанартай{" "}
             <span
               style={{
-                display: "inline",
-                fontSize: "clamp(48px, 7vw, 100px)",
-                color: "#2B2B2B",
-                letterSpacing: "-0.02em",
-                marginRight: "0.3em",
-              }}
-            >
-              Чанартай
-            </span>
-            <span
-              style={{
-                display: "inline",
-                fontSize: "clamp(48px, 7vw, 100px)",
-                fontWeight: 700,
+                fontWeight: 300,
                 fontStyle: "italic",
                 background: "linear-gradient(135deg, #C9A99A, #7B9BAE)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
-                letterSpacing: "-0.02em",
-                marginRight: "0.3em",
               }}
             >
-              тавилга
+              тавилга,
             </span>
+            <br />
             <span
               style={{
-                display: "inline",
-                fontSize: "clamp(36px, 5vw, 72px)",
-                color: "rgba(43,43,43,0.8)",
+                fontSize: "0.75em",
                 fontWeight: 300,
-                letterSpacing: "0.04em",
+                color: "#666",
+                letterSpacing: "-0.01em",
               }}
             >
-              тухтай орчин
+              тухтай орчин.
             </span>
           </h1>
+
+          <p
+            style={{
+              marginTop: 20,
+              fontSize: "clamp(14px, 1.5vw, 15px)",
+              color: "#666666",
+              lineHeight: 1.5,
+              maxWidth: 460,
+              fontWeight: 400,
+            }}
+          >
+            Таны гэрт дахин давтагдашгүй өнгө төрх, тав тухыг бэлэглэх уран
+            хийцэт орчин үеийн тавилгууд.
+          </p>
+
           <div
             style={{
-              marginTop: 40,
+              marginTop: 32,
               display: "flex",
-              gap: 16,
-              alignItems: "center",
+              flexWrap: "wrap", // Гар утсан дээр товчлуурууд багтахгүй бол доошоо шилжинэ
+              gap: 12,
             }}
           >
             <button
               style={{
-                background: "#E8E4DC",
-                color: "#2B2B2B",
+                background: "#1A1A1A",
+                color: "#FFFFFF",
                 border: "none",
-                padding: "16px 40px",
+                padding: "14px 32px",
                 fontSize: 13,
                 fontWeight: 600,
-                letterSpacing: "0.1em",
+                letterSpacing: "0.08em",
                 cursor: "pointer",
-                transition: "all 0.25s",
+                transition: "all 0.3s ease",
+                minWidth: "140px",
               }}
               onMouseEnter={(e) => {
-                (e.target as HTMLElement).style.background = "#D4A59C";
+                (e.target as HTMLElement).style.background = "#C9A99A";
               }}
               onMouseLeave={(e) => {
-                (e.target as HTMLElement).style.background = "#E8E4DC";
+                (e.target as HTMLElement).style.background = "#1A1A1A";
               }}
             >
               ХАВТАН ҮЗЭХ
@@ -278,49 +260,26 @@ export default function FurnitureLanding() {
             <button
               style={{
                 background: "transparent",
-                color: "#2B2B2B",
-                border: "1px solid rgba(43,43,43,0.2)",
-                padding: "16px 40px",
+                color: "#1A1A1A",
+                border: "1px solid #1A1A1A",
+                padding: "14px 32px",
                 fontSize: 13,
-                letterSpacing: "0.1em",
+                fontWeight: 600,
+                letterSpacing: "0.08em",
                 cursor: "pointer",
+                transition: "all 0.3s ease",
+                minWidth: "140px",
+              }}
+              onMouseEnter={(e) => {
+                (e.target as HTMLElement).style.background = "rgba(0,0,0,0.02)";
+              }}
+              onMouseLeave={(e) => {
+                (e.target as HTMLElement).style.background = "transparent";
               }}
             >
               ХОЛБОО БАРИХ
             </button>
           </div>
-        </div>
-
-        {/* Scroll indicator */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: 40,
-            left: "50%",
-            transform: "translateX(-50%)",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: 8,
-          }}
-        >
-          <span
-            style={{
-              fontSize: 10,
-              letterSpacing: "0.2em",
-              color: "rgba(43,43,43,0.5)",
-            }}
-          >
-            ДООШ
-          </span>
-          <div
-            style={{
-              width: 1,
-              height: 48,
-              background:
-                "linear-gradient(to bottom, rgba(43,43,43,0.3), transparent)",
-            }}
-          />
         </div>
       </section>
     </div>

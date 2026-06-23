@@ -54,7 +54,7 @@ export default function ProductModal({ product, isOpen, onClose }: ModalProps) {
             </p>
             <div className="flex items-center gap-2 text-sm text-zinc-500">
               <span className="font-bold text-zinc-900">Гарал үүсэл:</span>{" "}
-              {product.origin}
+              {product.origints}
             </div>
           </div>
 

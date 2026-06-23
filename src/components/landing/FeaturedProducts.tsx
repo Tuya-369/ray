@@ -7,8 +7,6 @@ const products = [
     price: 1740000,
     category: "Chair",
     image: "/chair1.png",
-    description: "Орчин үеийн загварын сүндэрлэгтэй сандал",
-    origin: "Швед",
   },
   {
     id: 2,
@@ -16,8 +14,6 @@ const products = [
     price: 1740000,
     category: "Chair",
     image: "/chair1.png",
-    description: "Орчин үеийн загварын сүндэрлэгтэй сандал",
-    origin: "Швед",
   },
   {
     id: 3,
@@ -25,8 +21,6 @@ const products = [
     price: 1740000,
     category: "Chair",
     image: "/chair1.png",
-    description: "Орчин үеийн загварын сүндэрлэгтэй сандал",
-    origin: "Швед",
   },
   {
     id: 4,
@@ -34,8 +28,6 @@ const products = [
     price: 1740000,
     category: "Chair",
     image: "/chair1.png",
-    description: "Орчин үеийн загварын сүндэрлэгтэй сандал",
-    origin: "Швед",
   },
 ];
 
@@ -44,7 +36,7 @@ export default function FeaturedProducts() {
     <section className="w-full mx-auto px-4 py-20 bg-white">
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-center w-full mb-12">
-          <h2 className="text-2xl font-bold text-zinc-900 tracking-0.1em uppercase">
+          <h2 className="text-2xl font-bold text-zinc-900 `tracking-[0.1em] uppercase">
             ОНЦЛОХ БҮТЭЭГДЭХҮҮН
           </h2>
         </div>

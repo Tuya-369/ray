@@ -6,12 +6,11 @@ export interface Product {
   id: number;
   name: string;
   price: number;
-  image: string;
   category: string;
-  description: string;
-  origin: string;
+  image: string;
+  description?: string;
+  origints?: string;
 }
-
 interface CartContextType {
   cart: Product[];
   addToCart: (product: Product) => void;
@@ -50,7 +49,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const totalPrice = cart.reduce((total, item) => total + item.price, 0);
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, totalPrice }}>
+    <CartContext.Provider
+      value={{ cart, addToCart, removeFromCart, totalPrice }}
+    >
       {children}
     </CartContext.Provider>
   );
