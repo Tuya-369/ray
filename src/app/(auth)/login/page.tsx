@@ -26,7 +26,6 @@ export default function LoginPage() {
     }
 
     try {
-      // Set a simple user in context (fake auth)
       const name = email.split("@")[0] || "User";
       setUser({ name: name.charAt(0).toUpperCase() + name.slice(1), email });
       setTimeout(() => setIsLoading(false), 400);
@@ -47,32 +46,35 @@ export default function LoginPage() {
             muted
             className="absolute inset-0 w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#111111]/90 via-[#111111]/40 to-[#111111]/20" />
+          <div className="absolute inset-0 .bg-gradient-to-t from-[#111111]/90 via-[#111111]/40 to-[#111111]/20" />
 
           <div className="absolute left-12 bottom-16 right-12 text-white">
             <p className="text-xs uppercase tracking-[0.4em] text-[#f8e7d6] font-medium mb-2">
-              Interior Design
+              Ray Interior Design
             </p>
             <h2 className="text-4xl font-bold leading-tight max-w-md">
-              Таны мөрөөдлийн гэр эндээс эхэлнэ
+              Германы чанарыг таны гэрт
             </h2>
             <p className="mt-3 max-w-sm text-sm leading-relaxed text-white/70 font-light">
-              Хамгийн чанартай тавилгыг минималист байдлаар нэг дороос хүргэнэ.
-              Танд зөвхөн шилдэг нь зохино.
+              стандартын дагуу боловсруулсан, Германы шилдэг хавтан модоор таны
+              мөрөөдлийн тавилгыг урлана. Минималист хэв маяг, нарийн нандин гар
+              урлалын төгс зохицол.
             </p>
           </div>
         </aside>
 
         <main className="w-full md:w-1/2 flex items-center justify-center px-6 py-12 md:px-12 lg:px-20 z-10 transition-transform duration-500 ease-in-out">
           <div className="w-full max-w-md">
-            {/* Лого */}
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 text-sm font-medium text-[#4b4b4b] hover:text-[#c17848] transition mb-6"
+            >
+              ← Буцах landing руу
+            </Link>
 
             <h1 className="text-3xl font-black tracking-tight text-brand sm:text-4xl">
-              Тавтай морил.
+              Нэвтрэх
             </h1>
-            <p className="mt-2 text-sm text-[#141414]">
-              Та тавилгатай ертөнц рүү илүү хурдан орно.
-            </p>
 
             <div className="mt-6 space-y-4">
               <button

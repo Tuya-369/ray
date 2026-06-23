@@ -21,7 +21,7 @@ export default function RootLayout({
         <UserProvider>
           <CartProvider>
             {!hideLayout && <Header />}
-            <main className="flex-grow">{children}</main>
+            <main className="`flex-grow`">{children}</main>
             {!hideLayout && <Footer />}
           </CartProvider>
         </UserProvider>

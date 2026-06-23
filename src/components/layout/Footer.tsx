@@ -9,17 +9,17 @@ import {
 const socialLinks = [
   {
     label: "Instagram",
-    href: "https://instagram.com/saina_construction",
+    href: "https://www.instagram.com/2yaa__nna/?hl=en",
     icon: <FaInstagram size={16} />,
   },
   {
     label: "Facebook",
-    href: "https://facebook.com/saina.construction",
+    href: "https://www.facebook.com/profile.php?id=61577554987299",
     icon: <FaFacebook size={16} />,
   },
   {
     label: "Gmail",
-    href: "mailto:Tuyarah@gmail.com",
+    href: "mailto:Gantuya.Office@gmail.com",
     icon: <FaEnvelope size={16} />,
   },
 ];
@@ -27,13 +27,13 @@ const socialLinks = [
 const contactItems = [
   {
     icon: <FaPhone size={14} />,
-    text: "86254874",
-    href: "tel:86254874",
+    text: "8006-6143",
+    href: "tel:8006-6143",
   },
   {
     icon: <FaEnvelope size={14} />,
-    text: "Tuyarah@gmail.com",
-    href: "mailto:Tuyarah@gmail.com",
+    text: "Gantuya.Office@gmail.com",
+    href: "mailto:Gantuya.Office@gmail.com",
   },
   {
     icon: <FaMapMarkerAlt size={14} />,
@@ -56,12 +56,8 @@ export default function Footer() {
             <p className="text-xs tracking-widest text-zinc-500 uppercase">
               Хайраар урлав
             </p>
-            <p className="text-sm text-zinc-400 leading-relaxed mt-1">
-              Германий чанартай Материал угсралт,
-            </p>
           </div>
 
-          {/* Contact */}
           <div>
             <h4 className="text-xs font-semibold tracking-widest uppercase text-orange-500 mb-4">
               Холбоо барих
@@ -87,7 +83,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Social */}
           <div>
             <h4 className="text-xs font-semibold tracking-widest uppercase text-orange-500 mb-4">
               Сошиал медиа
@@ -106,19 +101,11 @@ export default function Footer() {
                 </a>
               ))}
             </div>
-            <p className="text-xs text-zinc-600 mt-4 leading-relaxed">
-              Дагаарай, холбоо барьж,
-              <br />
-              санал хүсэлтээ илгээгээрэй.
-            </p>
           </div>
         </div>
 
-        {/* Divider */}
         <div className="border-t border-zinc-800 pt-5 flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-zinc-600">
-          <span>
-            © 2025 Tuyarah Construction. Бүх эрх хуулиар хамгаалагдсан.
-          </span>
+          <span>© 2026 Tuyarah Construction.</span>
           <span className="text-zinc-700">Чанар · Итгэл · Туршлага</span>
         </div>
       </div>
