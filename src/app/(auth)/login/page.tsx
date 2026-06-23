@@ -1,14 +1,14 @@
-"use client";
+﻿"use client";
 
 import { useState, FormEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useUser } from "@/src/context/UserContext";
 
 export default function LoginPage() {
   const router = useRouter();
-  
-
+  const { setUser } = useUser();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -19,7 +19,6 @@ export default function LoginPage() {
     setIsLoading(true);
     setError(null);
 
-
     if (!email || !password) {
       setError("И-мэйл болон нууц үгээ бүрэн оруулна уу.");
       setIsLoading(false);
@@ -27,15 +26,12 @@ export default function LoginPage() {
     }
 
     try {
-
-      
-      console.log("Нэвтрэх оролдлого:", { email, password });
-
-      setTimeout(() => {
-        setIsLoading(false);
-
-      }, 1500);
-
+      // Set a simple user in context (fake auth)
+      const name = email.split("@")[0] || "User";
+      setUser({ name: name.charAt(0).toUpperCase() + name.slice(1), email });
+      setTimeout(() => setIsLoading(false), 400);
+      // Optionally redirect after login
+      // router.push('/');
     } catch (err) {
       setError("И-мэйл эсвэл нууц үг буруу байна.");
       setIsLoading(false);
@@ -43,111 +39,121 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen bg-white">
+    <div className="min-h-screen bg-[#f7f1e8] text-[#1e1e1e] flex items-center justify-center p-4 md:p-0 overflow-hidden">
+      <div className="relative w-full max-w-7xl min-h-100vh md:min-h-[85vh] bg-white md:rounded-[2.5rem] md:shadow-[0_40px_100px_-40px_rgba(0,0,0,0.15)] flex flex-col md:flex-row overflow-hidden">
+        <aside className="hidden md:block md:w-1/2 relative overflow-hidden z-20 animate-fade-in">
+          <Image
+            src="/login-furniture.jpg"
+            alt="Modern furniture"
+            fill
+            priority
+            className="object-cover"
+          />
+          <div className="absolute inset-0 .bg-gradient-to-t from-[#111111]/90 via-[#111111]/40 to-[#111111]/20" />
 
-      <div className="flex flex-col justify-center w-full px-8 py-12 md:w-1/2 lg:px-24">
-        <div className="max-w-md mx-auto w-full">
-          
-          <h1 className="text-3xl font-bold text-zinc-900 mb-2">Тавтай морил</h1>
-          <p className="text-zinc-500 mb-8 font-light">Нэвтрэх мэдээллээ оруулна уу.</p>
+          <div className="absolute left-12 bottom-16 right-12 text-white">
+            <p className="text-xs uppercase tracking-[0.4em] text-[#f8e7d6] font-medium mb-2">
+              Interior Design
+            </p>
+            <h2 className="text-4xl font-bold leading-tight max-w-md">
+              Таны мөрөөдлийн гэр эндээс эхэлнэ
+            </h2>
+            <p className="mt-3 max-w-sm text-sm leading-relaxed text-white/70 font-light">
+              Хамгийн чанартай тавилгыг минималист байдлаар нэг дороос хүргэнэ.
+              Танд зөвхөн шилдэг нь зохино.
+            </p>
+          </div>
+        </aside>
 
+        {/* ================= ФОРМ БАЙРЛАХ ХЭСЭГ (БАРУУН ТАЛД) ================= */}
+        <main className="w-full md:w-1/2 flex items-center justify-center px-6 py-12 md:px-12 lg:px-20 z-10 transition-transform duration-500 ease-in-out">
+          <div className="w-full max-w-md">
+            {/* Лого */}
 
-          <button 
-            type="button"
-            disabled={isLoading}
-            className="w-full flex items-center justify-center gap-3 border border-zinc-200 py-3.5 rounded-xl font-medium hover:bg-zinc-50 transition-all active:scale-[0.98] mb-6 shadow-sm disabled:opacity-50"
-          >
-            <FcGoogle className="text-2xl" /> 
-            <span className="text-zinc-700">Google-ээр нэвтрэх</span>
-          </button>
+            <h1 className="text-3xl font-black tracking-tight text-brand sm:text-4xl">
+              Тавтай морил.
+            </h1>
+            <p className="mt-2 text-sm text-[#5f5f5f]">
+              Та тавилгатай ертөнц рүү илүү хурдан орно.
+            </p>
 
-          <div className="relative mb-6">
-            <div className="absolute inset-0 flex items-center">
-              <span className="w-full border-t border-zinc-100"></span>
-            </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-white px-4 text-zinc-400">Эсвэл и-мэйлээр</span>
+            <div className="mt-6 space-y-4">
+              <button
+                type="button"
+                disabled={isLoading}
+                className="flex w-full items-center justify-center gap-3 rounded-2xl border border-[#e4d7ca] bg-[#f8efe4] px-4 py-3 text-sm font-medium text-[#2d2d2d] transition hover:bg-[#efe3d7] disabled:opacity-70"
+              >
+                <FcGoogle className="text-xl" />
+                Google-ээр нэвтрэх
+              </button>
+
+              <div className="relative flex items-center justify-center text-xs uppercase my-4">
+                <span className="absolute w-full border-t border-[#e9e2d9]"></span>
+                <span className="relative bg-white px-3 tracking-widest text-[#8d8d8d]">
+                  Эсвэл имэйлээр
+                </span>
+              </div>
+
+              {error && (
+                <div className="rounded-2xl bg-red-50 px-4 py-3 text-sm text-red-600">
+                  {error}
+                </div>
+              )}
+
+              <form onSubmit={handleLogin} className="space-y-4">
+                <div>
+                  <label className="mb-1.5 block text-sm font-medium text-[#4b4b4b]">
+                    И-мэйл хаяг
+                  </label>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="example@mail.com"
+                    className="w-full rounded-xl border border-[#ded3c7] bg-[#faf3ea] px-4 py-2.5 text-sm text-brand outline-none transition focus:border-[#c17848] focus:ring-2 focus:ring-[#c17848]/20"
+                  />
+                </div>
+
+                <div>
+                  <div className="mb-1.5 flex items-center justify-between text-sm font-medium text-[#4b4b4b]">
+                    <span>Нууц үг</span>
+                    <Link
+                      href="/forgot-password"
+                      className="text-[#c17848] hover:underline text-xs"
+                    >
+                      Нууц үг мартсан?
+                    </Link>
+                  </div>
+                  <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="••••••••"
+                    className="w-full rounded-xl border border-[#ded3c7] bg-[#faf3ea] px-4 py-2.5 text-sm text-brand outline-none transition focus:border-[#c17848] focus:ring-2 focus:ring-[#c17848]/20"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full rounded-xl bg-[#1f1f1f] py-3 text-sm font-semibold text-white transition hover:bg-[#3e3e3e] disabled:opacity-70 mt-2"
+                >
+                  {isLoading ? "Уншиж байна..." : "Нэвтрэх"}
+                </button>
+              </form>
+
+              <p className="text-center text-sm text-[#606060] mt-4">
+                Бүртгэлгүй юу?{" "}
+                <Link
+                  href="/register"
+                  className="font-bold text-[#c17848] hover:underline"
+                >
+                  Бүртгүүлэх
+                </Link>
+              </p>
             </div>
           </div>
-
-          {error && (
-            <div className="bg-red-50 text-red-500 p-3 rounded-lg text-sm mb-4 animate-in fade-in slide-in-from-top-1">
-              {error}
-            </div>
-          )}
-
-          <form onSubmit={handleLogin} className="space-y-5">
-            <div>
-              <label className="block text-sm font-medium text-zinc-700 mb-1.5">И-мэйл хаяг</label>
-              <input 
-                type="email" 
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="example@mail.com"
-                className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none transition-all"
-              />
-            </div>
-            
-            <div>
-              <div className="flex justify-between mb-1.5">
-                <label className="text-sm font-medium text-zinc-700">Нууц үг</label>
-                <Link href="/forgot-password" size-sm className="text-xs text-orange-600 hover:underline">Нууц үг мартсан?</Link>
-              </div>
-              <input 
-                type="password" 
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-                className="w-full px-4 py-3 rounded-xl border border-zinc-200 focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none transition-all"
-              />
-            </div>
-
-            <button 
-              type="submit"
-              disabled={isLoading}
-              className="w-full bg-zinc-900 text-white py-3.5 rounded-xl font-semibold hover:bg-zinc-800 transition-all mt-2 flex justify-center items-center"
-            >
-              {isLoading ? (
-                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-              ) : "Нэвтрэх"}
-            </button>
-          </form>
-
-          <p className="mt-8 text-center text-zinc-600 text-sm">
-            Бүртгэлгүй юу? <Link href="/register" className="text-orange-600 font-bold hover:underline">Бүртгүүлэх</Link>
-          </p>
-        </div>
-      </div>
-      <div className="hidden relative md:block md:w-1/2 overflow-hidden">
-        <Image 
-          src="/login-furniture.jpg" 
-          alt="Modern Living Room"
-          fill
-          priority
-          className="object-cover scale-105 hover:scale-100 transition-transform duration-1000"
-        />
-        <div className="absolute inset-0 bg-black/30" />
-
-        <div className="absolute top-12 left-12">
-          <h2 className="text-xl font-light tracking-[0.6em] text-white/90 uppercase">
-            Туяарах
-          </h2>
-          <div className="h-[2px] w-8 bg-orange-500 mt-2" />
-        </div>
-
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center w-full px-16">
-          <span className="text-orange-500 font-medium tracking-[0.2em] text-xs uppercase mb-4 block">
-            Interior Design
-          </span>
-          <h2 className="text-5xl font-bold text-white mb-6 leading-tight drop-shadow-lg">
-            Таны мөрөөдлийн <br /> гэр эндээс эхэлнэ
-          </h2>
-          <p className="text-white/80 text-lg font-light max-w-sm mx-auto leading-relaxed">
-            Хамгийн чанартай тавилгыг <br /> нэг дороос, нэг товшилтоор.
-          </p>
-        </div>
+        </main>
       </div>
     </div>
   );
@@ -155,11 +161,29 @@ export default function LoginPage() {
 
 function FcGoogle({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 48 48" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
-      <path fill="#FFC107" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path>
-      <path fill="#FF3D00" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"></path>
-      <path fill="#4CAF50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"></path>
-      <path fill="#1976D2" d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path>
+    <svg
+      className={className}
+      viewBox="0 0 48 48"
+      height="1em"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fill="#FFC107"
+        d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"
+      />
+      <path
+        fill="#FF3D00"
+        d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"
+      />
+      <path
+        fill="#4CAF50"
+        d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"
+      />
+      <path
+        fill="#1976D2"
+        d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
+      />
     </svg>
   );
 }

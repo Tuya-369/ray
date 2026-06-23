@@ -1,4 +1,10 @@
-import { FaInstagram, FaFacebook, FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
+import {
+  FaInstagram,
+  FaFacebook,
+  FaEnvelope,
+  FaPhone,
+  FaMapMarkerAlt,
+} from "react-icons/fa";
 
 const socialLinks = [
   {
@@ -39,21 +45,19 @@ const contactItems = [
 export default function Footer() {
   return (
     <footer className="bg-zinc-900 text-zinc-300 font-sans">
-      
       <div className="h-1 w-full bg-orange-600" />
 
       <div className="max-w-5xl mx-auto px-6 pt-10 pb-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-8">
           <div className="flex flex-col gap-3">
-            <div className="text-2xl font-black tracking-widest uppercase text-white">
-              Tuyarah<span className="text-orange-500"></span>
+            <div className="text-2xl font-black tracking-widest uppercase text-orange-500">
+              Ray
             </div>
             <p className="text-xs tracking-widest text-zinc-500 uppercase">
-              Барилга · Засвар · Угсралт
+              Хайраар урлав
             </p>
             <p className="text-sm text-zinc-400 leading-relaxed mt-1">
-              Мэргэжлийн барилгын үйлчилгээ. Чанартай, найдвартай, цаг
-              хугацаандаа.
+              Германий чанартай Материал угсралт,
             </p>
           </div>
 
@@ -112,7 +116,9 @@ export default function Footer() {
 
         {/* Divider */}
         <div className="border-t border-zinc-800 pt-5 flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-zinc-600">
-          <span>© 2025 Tuyarah Construction. Бүх эрх хуулиар хамгаалагдсан.</span>
+          <span>
+            © 2025 Tuyarah Construction. Бүх эрх хуулиар хамгаалагдсан.
+          </span>
           <span className="text-zinc-700">Чанар · Итгэл · Туршлага</span>
         </div>
       </div>
