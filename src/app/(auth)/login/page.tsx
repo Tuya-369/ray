@@ -69,7 +69,7 @@ export default function LoginPage() {
               href="/"
               className="inline-flex items-center gap-2 text-sm font-medium text-[#4b4b4b] hover:text-[#c17848] transition mb-6"
             >
-              ← Буцах landing руу
+              ← Буцах
             </Link>
 
             <h1 className="text-3xl font-black tracking-tight text-brand sm:text-4xl">

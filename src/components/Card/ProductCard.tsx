@@ -12,17 +12,15 @@ export default function ProductCard({ product }: { product: Product }) {
   return (
     <>
       <div className="group flex flex-col h-full bg-white">
-        {/* Зургийн хэсэг */}
         <div className="relative aspect-square w-full overflow-hidden  flex items-center justify-center p-8 transition-all duration-500 group-hover:shadow-xl group-hover:shadow-zinc-200/50">
-          <img 
-            src={product.image} 
-            alt={product.name} 
-            className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110" 
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110"
           />
-          
-      
+
           <div className="absolute inset-0 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0">
-            <button 
+            <button
               onClick={() => addToCart(product)}
               className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-zinc-900 shadow-lg hover:bg-zinc-900 hover:text-white transition-all duration-300 active:scale-90"
               title="Сагсанд нэмэх"
@@ -30,7 +28,7 @@ export default function ProductCard({ product }: { product: Product }) {
               <ShoppingBag size={20} strokeWidth={1.5} />
             </button>
 
-            <Link 
+            <Link
               href={`/product/${product.id}`}
               className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-zinc-900 shadow-lg hover:bg-zinc-900 hover:text-white transition-all duration-300 active:scale-90"
               title="Дэлгэрэнгүй үзэх"
@@ -55,8 +53,6 @@ export default function ProductCard({ product }: { product: Product }) {
           </div>
         </div>
       </div>
-
-   
     </>
   );
 }

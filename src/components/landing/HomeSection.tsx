@@ -157,7 +157,6 @@ export default function FurnitureLanding() {
         color: "#2B2B2B",
       }}
     >
-      {/* HERO */}
       <section
         style={{
           position: "relative",
@@ -168,7 +167,6 @@ export default function FurnitureLanding() {
           justifyContent: "center",
         }}
       >
-        {/* Wave background */}
         <div style={{ position: "absolute", inset: 0 }}>
           <WaveCanvas />
           {/* Gradient overlays */}
@@ -190,7 +188,6 @@ export default function FurnitureLanding() {
           />
         </div>
 
-        {/* Hero text */}
         <div
           style={{
             position: "relative",

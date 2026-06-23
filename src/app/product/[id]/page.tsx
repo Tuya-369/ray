@@ -23,7 +23,6 @@ export default function ProductDetailPage() {
   const [userRating, setUserRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
 
-  // Жишээ дата
   const product = {
     id: Number(id),
     name: "Sakarias Armchair",
